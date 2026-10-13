@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <script src="https://unpkg.com/vue@2.7.16/dist/vue.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/vuetify@2.7.2/dist/vuetify.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/vuetify@2.7.2/dist/vuetify.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <title>SnackbarStack Demo</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+
+      #theOutlet {
+        font-size: .9em;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+
+  <script type="text/x-template" id="my-x-template">
+    <div>
+      <h2 style="display: inline-block">Hello</h2>
+      <h3 style="display: inline-block">X-Template</h3>
+    </div>
+  </script>
+
+  <div id="app" v-cloak>
+    <v-app>
+      <v-main>
+        <v-container class="text-center">
+          <v-layout column>
+            <h1>SnackbarStack Demo</h1>
+            <a href='https://www.npmjs.com/package/snackbarstack' target='_blank'>
+              https://www.npmjs.com/package/snackbarstack
+            </a>
+            <div>Push Several Times To Queue Up Snackbar Messages</div>
+            <v-btn @click="onClick">Simple Message</v-btn>
+            <v-btn @click="onClick_flush">Flush Queue + Simple Message</v-btn>
+            <v-btn @click="onClickText">Text Action</v-btn>
+            <v-btn @click="onClickIcon">Icon Action</v-btn>
+            <v-btn @click="onClickAction">Custom Close Action</v-btn>
+            <v-btn @click="onClickXTemplate">X-Template Content</v-btn>
+            <v-btn @click="onSendToOutlet">Send To Custom Outlet</v-btn>
+            <v-btn @click="onSendToOutlet_purge">Flush Queue + Send To Custom Outlet</v-btn>
+
+            <div>This is a custom outlet --> <span id="theOutlet"></span> <--</div>
+            <div style="display: flex">
+              <v-checkbox v-model="keepOpen" label="Keep Open Until Dismissed"></v-checkbox>
+              <v-text-field label="duration" v-model="xduration"></v-text-field>
+            </div>
+          </v-layout>
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+
+  <script src="../dist/index.js"></script>
+  <script>
+    let songNumber = 1
+
+    Vue.use(Vuetify)
+    Vue.use(SnackbarStackPlugin, { duration: 6000 })
+
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      data: {
+        keepOpen: false,
+        xduration: 2000
+      },
+      computed: {
+        duration() {
+          return this.keepOpen ? -1 : this.xduration
+        }
+      },
+      methods: {
+        onClick() {
+          this.$snackbar.show(`Now Playing: Song ${songNumber++}`, { duration: this.duration })
+        },
+        onClick_flush() {
+          this.$snackbar.show(`Now Playing: Song ${songNumber++}`, {
+            duration: this.duration,
+            flushAll: true
+          })
+          // this.$snackbar.show(`Now Playing: Song ${songNumber++}`, {duration: this.duration, flushAll: true})
+        },
+        onClickText() {
+          const actions = [
+            {
+              caption: 'Push Me',
+              handler: () => {
+                window.alert('pushed')
+              }
+            }
+          ]
+          this.$snackbar.show(`The time is ${new Date()}`, {
+            duration: this.duration,
+            actions
+          })
+        },
+        onClickIcon() {
+          const actions = [
+            {
+              icon: 'mdi-alarm',
+              handler: () => {
+                window.alert('pushed')
+              }
+            }
+          ]
+          this.$snackbar.show(`The time is ${new Date()}`, {
+            duration: this.duration,
+            actions
+          })
+        },
+        onClickAction() {
+          const actions = [ {
+            caption: 'Click To Close',
+            handler: (snackbar, options) => {
+              snackbar.close()
+            }
+          } ]
+          this.$snackbar.show(`Hello!`, {
+            duration: -1,
+            closeable: false,
+            actions
+          })
+        },
+        onClickXTemplate() {
+          this.$snackbar.show(`#my-x-template`, {
+            duration: this.duration,
+            template: true
+          })
+        },
+        onSendToOutlet() {
+          this.$snackbar.show(`Now Playing: Song ${songNumber++}`, {
+            duration: 1500,
+            outlet: '#theOutlet'
+          })
+        },
+        onSendToOutlet_purge() {
+          this.$snackbar.show(`Now Playing: Song #${songNumber++}`, {
+            duration: 1500,
+            outlet: '#theOutlet',
+            flushAll: true
+          })
+        },
+      }
+    })
+  </script>
+  </body>
+  </html>

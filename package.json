@@ -1,0 +1,62 @@
+{
+  "name": "snackbarstack",
+  "version": "2.0.0",
+  "description": "Queue up your Vuetify snackbars.",
+  "main": "dist/index.node.js",
+  "scripts": {
+    "build": "webpack",
+    "lint": "eslint .",
+    "pretest": "npm run lint && npm run build",
+    "test": "node --test \"test/*.test.js\"",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "vue",
+    "vuetify",
+    "snackbar",
+    "alert",
+    "notification",
+    "toast",
+    "code-evolve"
+  ],
+  "author": "Steven Spungin",
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": "^2.6.11",
+    "vuetify": "^2.3.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@babel/preset-env": "^7.29.7",
+    "babel-loader": "^9.2.1",
+    "css-loader": "^6.11.0",
+    "eslint": "^9.39.5",
+    "eslint-plugin-vue": "^9.33.0",
+    "globals": "^15.15.0",
+    "jsdom": "^25.0.1",
+    "style-loader": "^3.3.4",
+    "vue": "^2.7.16",
+    "vue-loader": "^15.11.1",
+    "vue-template-compiler": "^2.7.16",
+    "webpack": "^5.111.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "files": [
+    "dist/",
+    "demo/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-evolve/snackbarstack.git"
+  }
+}
