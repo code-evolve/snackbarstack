@@ -1,15 +1,17 @@
 # Overview
 The SnackbarStack plugin for Vue and Vuetify adds features
-on top of the existing Vuetify snackbar.
+on top of the existing Vuetify snackbar
 
 # Features
-* Queues pending snackbar messages.
-* Adds a $snackbar object to every component.
-* Shows a progress bar until the message timing out.
-* Shows an indicator if additional messages are queued.
-* Provides a next/close button.
-* Support for multiple message outlets.
+* Queues pending snackbar messages
+* Adds a $snackbar object to every component
+* Shows a progress bar until the message times out
+* Shows an indicator if additional messages are queued
+* Provides a next/close button
+* Support for multiple message outlets
 * Message queue flushing
+
+Source and issues: [github.com/code-evolve/snackbarstack](https://github.com/code-evolve/snackbarstack)
 
 # Requirements
 * Vue 2.6 or later 2.x
@@ -86,7 +88,7 @@ The duration of each snackbar message in milliseconds.
 This is used for messages that do not specify their own duration.
 
 ## show(message, options)
-Shows or queues a snackbar message.
+Shows or queues a snackbar message
 
 The message is rendered as HTML, both in the snackbar and in outlets.
 Escape any text that comes from users or other untrusted sources
